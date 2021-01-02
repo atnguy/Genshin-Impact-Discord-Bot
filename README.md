@@ -30,6 +30,6 @@ I don't plan on hosting my bot via a web service and I will use my bot for perso
 * Domains
 
 ## Changelog
-* v1.1.0: Corrected necessary materials for level 10 talent
+* v1.1.1: Corrected necessary materials for level 10 talent
 * v1.1.0: Added Talents. Added Tartaglia
 * v1.0.0: Created project
