@@ -1,4 +1,4 @@
-# Genshin-Impact-Discord-Bot v1.1.0
+# Genshin-Impact-Discord-Bot v1.1.1
 A discord bot dedicated to displaying information of the materials needed to perform ascensions or talent level ups for the game "Genshin Impact" through embeds on Discord.
 (also my first time working on a discord bot)
 ## Files
@@ -30,5 +30,6 @@ I don't plan on hosting my bot via a web service and I will use my bot for perso
 * Domains
 
 ## Changelog
+* v1.1.0: Corrected necessary materials for level 10 talent
 * v1.1.0: Added Talents. Added Tartaglia
 * v1.0.0: Created project
