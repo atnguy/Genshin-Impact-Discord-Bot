@@ -26,7 +26,7 @@ I don't plan on hosting my bot via a web service and I will use my bot for perso
 ### Planned updates
 * Weapons
 * ~Talents~
-* Materials avaible for current day in domains
+* Materials available for current day in domains
 * Domains
 
 ## Changelog
