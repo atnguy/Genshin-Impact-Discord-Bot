@@ -30,7 +30,7 @@ def talent(name,book,boss,Common1,Common2,Common3,color,imagelink):
     embed.add_field(name = "Talent level 7",value = f'4x {Common3}, 4x Philosophies of "{book}", 1x {boss}, 120,000 Mora',inline = False)
     embed.add_field(name = "Talent level 8",value = f'6x {Common3}, 6x Philosophies of "{book}", 1x {boss}, 260,000 Mora',inline = False)
     embed.add_field(name = "Talent level 9",value = f'9x {Common3}, 12x Philosophies of "{book}", 2x {boss}, 450,000 Mora',inline = False)
-    embed.add_field(name = "Talent level 10",value = f'12x {Common3}, 16x Philosophies of "{book}", 2x {boss}, 700,000 Mora',inline = False)          
+    embed.add_field(name = "Talent level 10",value = f'12x {Common3}, 16x Philosophies of "{book}", 2x {boss}, 1x Crown of Insight, 700,000 Mora',inline = False)          
     return embed
 def talent_traveler(element):
     #setting default values to anemo traveler
@@ -67,7 +67,7 @@ def talent_traveler(element):
     embed.add_field(name = "Talent level 7",value = f'4x {Common3}, 4x Philosophies of "{book3}", 1x {boss}, 120,000 Mora',inline = False)
     embed.add_field(name = "Talent level 8",value = f'6x {Common3}, 6x Philosophies of "{book1}", 1x {boss}, 260,000 Mora',inline = False)
     embed.add_field(name = "Talent level 9",value = f'9x {Common3}, 12x Philosophies of "{book2}", 2x {boss}, 450,000 Mora',inline = False)
-    embed.add_field(name = "Talent level 10",value = f'12x {Common3}, 16x Philosophies of "{book3}", 2x {boss}, 700,000 Mora',inline = False)          
+    embed.add_field(name = "Talent level 10",value = f'12x {Common3}, 16x Philosophies of "{book3}", 2x {boss}, 1x Crown of Insight, 700,000 Mora',inline = False)          
     return embed
 @bot.command(name='qiqi',help ="Displays ascension materials for Qiqi. Replace [flags] with 'talent' to see talent materials instead or 'all' to see both.")
 async def qiqi(ctx,flags:str=None):
