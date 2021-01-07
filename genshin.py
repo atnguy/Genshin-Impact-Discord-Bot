@@ -821,4 +821,63 @@ async def zhongli(ctx, flags: str = None):
         embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
         await ctx.send(embed=embed)
 #End of characters
+#in the case of weapons, the material amount depends on the rarity of the weapon. The weapon acsension specific material (the one obtainalbe from domains)
+#Could possibly expand as new regions are included and don't follow a similar naming pattern for characters. Will require its own helper funciton.
+def get_weapon_asc(name):
+    #returns ascension material names in the form of a list
+    #since this is a helper function and I'm manually putting in the parameter, I don't have to worry about name being mispelt or lowercase
+    if(name == "decarabian"):
+       return ["Tile of Decarabian's Tower","Debris of Decarabian's City","Fragment of Decarabian's Epic","Scattered Piece of Decarabian's Dream"]
+    elif(name == "boreal"):
+        return ["Boreal Wolf's Milk Tooth","Boreal Wolf's Cracked Tooth","Boreal Wolf's Broken Fang","Boreal Wolf's Nostalgia"]
+    elif(name == "dandelion" or name == "gladiator"):
+        return ["Fetters of the Dandelion Gladiator","Chains of the Dandelion Gladiator","Shackles of the Dandelion Gladiator","Dream of the Dandelion Gladiator"]
+    elif(name == "gunyun"):
+        return ["Luminous Sands from Guyun","Lustrous Stone from Guyun","Relic from Guyun","Divine Body from Guyun"]
+    elif(name == "mist" or name == "veiled"):
+        return ["Mist Veiled Lead Elixir","Mist Veiled Mercury Elixir","Mist Veiled Gold Elixir","Mist Veiled Primo Elixir"]
+    elif(name == "aerosiderite"):
+        return ["Grain of Aerosiderite","Piece of Aerosiderite","Bit of Aerosiderite","Chunk of Aerosiderite"]
+    else: 
+        #Decrarbian by default
+        return ["Tile of Decarabian's Tower","Debris of Decarabian's City","Fragment of Decarabian's Epic","Scattered Piece of Decarabian's Dream"]
+
+def get_weapon_onestar(ascension,name,common1,common2,common4,common5,imagelink):
+    ascensionlist = get_weapon_asc(ascension)
+    embed = discord.Embed(title= f"{name} Ascension Materials",colour = discord.Colour.light_grey(),description = "Weapon Effect: None")
+    embed.set_thumbnail(url =imagelink)
+    embed.add_field(name ="Ascesnion 1",value =f"1x {ascensionlist[0]}, 1x {common1}, 1x {common4}, 0 mora", inline =False)
+    embed.add_field(name ="Ascesnion 2",value =f"1x {ascensionlist[1]}, 4x {common1}, 2x {common4}, 5,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 3",value =f"2x {ascensionlist[1]}, 2x {common2}, 2x {common5}, 5,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 4",value =f"1x {ascensionlist[2]}, 4x {common2}, 3x {common5}, 10,000 mora", inline =False)
+    return embed
+
+def get_weapon_twostar(ascension,name,common1,common2,common4,common5,imagelink):
+    ascensionlist = get_weapon_asc(ascension)
+    embed = discord.Embed(title= f"{name} Ascension Materials",colour = discord.Colour.green(),description = "Weapon Effect: None")
+    embed.set_thumbnail(url =imagelink)
+    embed.add_field(name ="Ascesnion 1",value =f"1x {ascensionlist[0]}, 1x {common1}, 1x {common4}, 5,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 2",value =f"1x {ascensionlist[1]}, 5x {common1}, 4x {common4}, 5,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 3",value =f"3x {ascensionlist[1]}, 3x {common2}, 3x {common5}, 10,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 4",value =f"1x {ascensionlist[2]}, 5x {common2}, 4x {common5}, 15,000 mora", inline =False)
+    return embed
+
+#design decision: make the command one word instead of oneword and an argument e.g "dullblade" vs "dull blade"
+#if I wanted the user to input "!genshin dull blade" I'd have to do something like "@bot.command(name = "dull")" with an argument
+#async def dull_blade(ctx, arg:str) and check that arg == "blade". This can work for even the skyward weapon series but, I've decided
+#to keep it one word so that I can declare easily that punctuation is not included e.g Wolf's Gravestone becomes wolfsgravestone
+#to begin with, the first set of weapons are swords
+@bot.command(name = "dullblade", aliases =["1starsword"], help ="Displays weapon ascension materials for the weapon 'Dull Blade'")
+async def dull_blade(ctx):
+    common1 = "Heavy Horn"
+    common2 = "Black Bronze Horn"
+    common4 = "Firm Arrowhead"
+    common5 = "Sharp Arrowhead"
+    name = "Dull Blade"
+    ascension = "decarabian"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/9/90/Weapon_Dull_Blade_3D.png"
+    embed = get_weapon_onestar(ascension,name,common1,common2,common4,common5,imagelink)
+    await ctx.send(embed=embed)
+
+
 bot.run(TOKEN)
