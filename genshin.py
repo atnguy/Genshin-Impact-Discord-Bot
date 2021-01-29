@@ -342,6 +342,34 @@ async def fischl(ctx, flags: str = None):
     else:
         embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
         await ctx.send(embed=embed)
+@bot.command(name ='Ganyu', aliases =['cocogoat'],help = "Displays ascension materials for Ganyu. Replace [flags] with 'talent' to see talent materials instead or 'all' to see both.")
+async def fischl(ctx, flags: str = None):
+    gem = "Shivada Jade"
+    boss = "Hoarfrost Core"
+    Local ="Qingxin"
+    Common1 = "Whopperflower Nectar"
+    Common2 = "Shimmering Nectar"
+    Common3 = "Energy Nectar"
+    name = "Ganyu"
+    color = discord.Colour.teal()
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/8/8d/Character_Ganyu_Card.png"
+    weekly_boss = "Shadow of the Warrior"
+    book = "Dilligence"
+
+    if(flags is not None):
+        lowercase = flags.lower()
+        lowercase = lowercase.strip()
+        if(lowercase == 'talent'):
+            embed = talent(name,book,weekly_boss,Common1,Common2,Common3,color,imagelink)
+            await ctx.send(embed=embed)
+        if(lowercase == 'all'):
+            embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
+            await ctx.send(embed=embed)
+            embed = talent(name,book,weekly_boss,Common1,Common2,Common3,color,imagelink)
+            await ctx.send(embed=embed)
+    else:
+        embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
+        await ctx.send(embed=embed)
 @bot.command(name ='jean',help = "Displays ascension materials for Jean. Replace [flags] with 'talent' to see talent materials instead or 'all' to see both.")
 async def Jean(ctx, flags: str = None):
     gem = "Vayuda Turquoise"
@@ -622,7 +650,6 @@ async def sucrose(ctx, flags: str = None):
     else:
         embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
         await ctx.send(embed=embed)
-#todo, CHILDE!!!!
 @bot.command(name = 'tartaglia', aliases =['childe','ajax'],help = "Displays asecnsion materials for Tartaglia. Replace [flags] with 'talent' to see talent materials instead or 'all' to see both.")
 async def childe(ctx, flags: str = None):
     gem = "Varunada Lazurite"
@@ -651,8 +678,9 @@ async def childe(ctx, flags: str = None):
     else:
         embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
         await ctx.send(embed=embed)
-#Traveler is a nasty case for talents. Based on which element he's resonated with, it changes the materials needed. Skip for now
+#Traveler is a nasty case for talents. Based on which element he's resonated with, it changes the materials needed.
 #Traveler also doesn't have a local boss material so.... can't use ascension() and talent() on them
+#The specific helper function talent_traveler() is desinged so that when the traveler unlocks more elements, they can be quickly integrated into the code
 @bot.command(name = 'traveler', aliases =['mc','Aether','Lumine'],help = "Displays ascension materials for the Traveler. Replace [flags] with 'talentgeo' to see talent materials for Geo Traveler instead or 'talentanemo' to see talent materials for Anemo Traveler.")
 async def traveler(ctx,  flags: str = None):
     
@@ -733,6 +761,36 @@ async def gouba(ctx,  flags: str = None):
             await ctx.send(embed=embed)
             embed = talent(name,book,weekly_boss,Common1,Common2,Common3,color,imagelink)
             await ctx.send(embed=embed)
+    else:
+        embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
+        await ctx.send(embed=embed)
+#Not completed because Xiao did not get released yet. Will update this in the coming days as 1.3 release is really soon
+@bot.command(name ='Xiao', aliases =['Alatus'],help = "Displays ascension materials for Xiao")
+async def fischl(ctx, flags: str = None):
+    gem = "Vayuda Turquoise"
+    boss = "Hurricane Seed"
+    Local ="Qingxin"
+    Common1 = "Firm Arrowhead"
+    Common2 = "Sharp Arrowhead"
+    Common3 = "Weathered Arrowhead"
+    name = "Xiao"
+    color = discord.Colour.green()
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/8/88/Character_Xiao_Card.jpg"
+    #weekly_boss = "Shadow of the Warrior" To update upon Xiao release
+    #book = "Dilligence"
+
+    if(flags is not None):
+        lowercase = flags.lower()
+        lowercase = lowercase.strip()
+        if(lowercase == 'talent'):
+            embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
+            #embed = talent(name,book,weekly_boss,Common1,Common2,Common3,color,imagelink) uncomment once he's released
+            await ctx.send(embed=embed)
+        if(lowercase == 'all'):
+            embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
+            await ctx.send(embed=embed)
+            #embed = talent(name,book,weekly_boss,Common1,Common2,Common3,color,imagelink)
+            #await ctx.send(embed=embed)
     else:
         embed = ascension(name,gem,boss,Local,Common1,Common2,Common3,color,imagelink)
         await ctx.send(embed=embed)
@@ -862,6 +920,17 @@ def get_weapon_twostar(ascension,name,common1,common2,common4,common5,imagelink)
     embed.add_field(name ="Ascesnion 4",value =f"1x {ascensionlist[2]}, 5x {common2}, 4x {common5}, 15,000 mora", inline =False)
     return embed
 
+def get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect):
+    ascensionlist = get_weapon_asc(ascension)
+    embed = discord.Embed(title= f"{name} Ascension Materials",colour = discord.Colour.teal(),description = f"Weapon Effect: {weapon_effect}")
+    embed.set_thumbnail(url =imagelink)
+    embed.add_field(name ="Ascesnion 1",value =f"2x {ascensionlist[0]}, 2x {common1}, 1x {common4}, 5,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 2",value =f"2x {ascensionlist[1]}, 8x {common1}, 5x {common4}, 10,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 3",value =f"4x {ascensionlist[1]}, 4x {common2}, 4x {common5}, 15,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 4",value =f"2x {ascensionlist[2]}, 8x {common2}, 6x {common5}, 20,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 5",value =f"4x {ascensionlist[2]}, 6x {common3}, 4x {common6}, 25,000 mora", inline =False)
+    embed.add_field(name ="Ascesnion 6",value =f"3x {ascensionlist[3]}, 12x {common3}, 8x {common6}, 30,000 mora", inline =False)
+    return embed
 #design decision: make the command one word instead of oneword and an argument e.g "dullblade" vs "dull blade"
 #if I wanted the user to input "!genshin dull blade" I'd have to do something like "@bot.command(name = "dull")" with an argument
 #async def dull_blade(ctx, arg:str) and check that arg == "blade". This can work for even the skyward weapon series but, I've decided
@@ -878,6 +947,100 @@ async def dull_blade(ctx):
     imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/9/90/Weapon_Dull_Blade_3D.png"
     embed = get_weapon_onestar(ascension,name,common1,common2,common4,common5,imagelink)
     await ctx.send(embed=embed)
-
-
+@bot.command(name = "silversword", help ="Displays weapon ascension materials for the weapon 'Silver Sword'")
+async def silver_blade(ctx):
+    common1 = "Heavy Horn"
+    common2 = "Black Bronze Horn"
+    common4 = "Firm Arrowhead"
+    common5 = "Sharp Arrowhead"
+    name = "Dull Blade"
+    ascension = "decarabian"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/4/40/Weapon_Silver_Sword_3D.png"
+    embed = get_weapon_twostar(ascension,name,common1,common2,common4,common5,imagelink)
+    await ctx.send(embed=embed)
+@bot.command(name = "filletblade", aliases = ["fillet"], help = "Displays weapon ascension materials for the weapon 'Fillet Blade'")
+async def fillet_blade(ctx):
+    common1 = "Mist Grass Pollen"
+    common2 = "Mist Grass"
+    common3 = "Mist Grass Wick"
+    common4 = "Treasure Hoarder Insignia"
+    common5 = "Silver Raven Insignia"
+    common6 = "Golden Raven Insignia"
+    name = "Fillet Blade"
+    ascension = "mist"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/c/cc/Weapon_Fillet_Blade_3D.png"
+    weapon_effect = "On hit, has 50% chance to deal 240~400% ATK DMG to a single enemy. Can only occur once every 15~11s." 
+    #this string goes against python rules with %, but it looks fine on discord. vscode highlights the '% C' of the string
+    embed = get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect)
+    await ctx.send(embed=embed)
+@bot.command(name = "skyridersword", aliases = ["skyrider"], help = "Displays weapon ascension materials for the weapon 'Skyrider Sword'")
+async def skyrider_blade(ctx):
+    common1 = "Fragile Bone Shard"
+    common2 = "Sturdy Bone Shard"
+    common3 = "Fossilized Bone Shard"
+    common4 = "Recruit's Insignia"
+    common5 = "Sergeant's Insignia"
+    common6 = "Lieutenant's Insignia"
+    name = "Skyrider Sword"
+    ascension = "aerosiderite"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/4/45/Weapon_Skyrider_Sword_3D.png"
+    weapon_effect = "Using an Elemental Burst grants a 12~24% increase in ATK and Movement SPD for 15s." 
+    embed = get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect)
+    await ctx.send(embed=embed)
+@bot.command(name = "harbigerofdawn", aliases = ["harbinger"], help = "Displays weapon ascension materials for the weapon 'Harbinger of Dawn'")
+async def harbinger_blade(ctx):
+    common1 = "Dead Ley Line Branch"
+    common2 = "Dead Ley Line Leaves"
+    common3 = "Ley Line Sprouts"
+    common4 = "Slime Condensate"
+    common5 = "Slime Secretions"
+    common6 = "Slime Concentrate"
+    name = "Harbinger of Dawn"
+    ascension = "boreal"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/2/23/Weapon_Harbinger_of_Dawn_3D.png"
+    weapon_effect = "When HP is above 90%, increases CRIT Rate by 14~28%." 
+    embed = get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect)
+    await ctx.send(embed=embed)
+@bot.command(name = "travelershandysword", aliases = ["handysword","travelerhandysword"], help = "Displays weapon ascension materials for the weapon 'Traveler's Handy Sword'")
+async def traveler_blade(ctx):
+    common1 = "Chaos Device"
+    common2 = "Chaos Circuit"
+    common3 = "Chaos Core"
+    common4 = "Divining Scroll"
+    common5 = "Sealed Scroll"
+    common6 = "Forbidden Curse Scroll"
+    name = "Traveler's Handy Sword"
+    ascension = "dandelion"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/b/bb/Weapon_Traveler%27s_Handy_Sword_3D.png"
+    weapon_effect = "Each Elemental Orb or Particle collected restores 1~2% HP." 
+    embed = get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect)
+    await ctx.send(embed=embed)
+@bot.command(name = "darkironsowrd", aliases = ["darkiron"], help = "Displays weapon ascension materials for the weapon 'Dark Iron sword")
+async def iron_blade(ctx):
+    common1 = "Hunter's Sacrificial Knife"
+    common2 = "Agent's Sacrificial Knife"
+    common3 = "Inspector's Sacrificial Knife"
+    common4 = "Damaged Mask"
+    common5 = "Stained Mask"
+    common6 = "Ominous Mask"
+    name = "Dark Iron Sword"
+    ascension = "guyun"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/4/44/Weapon_Dark_Iron_Sword_3D.png"
+    weapon_effect = "Upon causing an Overloaded, Superconduct, Electro-Charged, or an Electro-infused Swirl reaction, ATK is increased by 20~40% for 12s." 
+    embed = get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect)
+    await ctx.send(embed=embed)
+@bot.command(name = "coolsteel",help = "Displays weapon ascension materials for the weapon 'Cool Steel")
+async def cold_blade(ctx):
+    common1 = "Heavy Horn"
+    common2 = "Black Bronze Horn"
+    common3 = "Black Crystal Horn"
+    common4 = "Firm Arrowhead"
+    common5 = "Sharp Arrowhead"
+    common6 = "Weathered Arrowhead"
+    name = "Cool Steel"
+    ascension = "decarabian"
+    imagelink = "https://static.wikia.nocookie.net/gensin-impact/images/4/40/Weapon_Cool_Steel_3D.png"
+    weapon_effect = "Increases DMG against opponents affected by Hydro or Cryo by 12~24%." 
+    embed = get_weapon_threestar(ascension,name,common1,common2,common3,common4,common5,common6,imagelink,weapon_effect)
+    await ctx.send(embed=embed)
 bot.run(TOKEN)
