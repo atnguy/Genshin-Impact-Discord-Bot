@@ -23,11 +23,9 @@ I don't plan on hosting my bot via a web service and I will use my bot for perso
 * !genshin help provides the entire list of commands. !genshin help <command> provides a detailed description of each command
 * !genshin <character_name> [flags]. Replace <character_name> with the character name to obtain the list of ascension materials in an embed. [flags] is an optional parameter where you can input either  'talent' to see the talent material list instead or 'all' to see both. For the traveler, [flags] input options are 'talentanemo' to see the talent materials for the Anemo Traveler or 'talentgeo' to see the talent materials for the Geo Traveler 
 ## Status of this project
-### Planned updates
-* Weapons
-* ~Talents~
-* Materials available for current day in domains
-* Domains
+
+I stopped playing genshin so i stopped working on this.
+
 
 ## Changelog
 * v1.1.1: Corrected necessary materials for level 10 talent
